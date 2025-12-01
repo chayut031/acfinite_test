@@ -72,18 +72,19 @@
       gap: 10px;
     }
     .nav-mark {
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      border: 1px solid #c3d8e6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--primary-deep);
-      background: var(--primary-soft);
-    }
+      width: auto;               /* ให้ขยายตามโลโก้ */
+  height: 28px;              /* หรือปรับสูงต่ำได้ */
+  border: none;              /* เอากรอบออก */
+  background: transparent;   /* เอาพื้นหลังออก */
+  display: flex;
+  align-items: center;
+}
+
+.nav-mark img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
     .nav-title {
       font-weight: 600;
       font-size: 15px;
@@ -536,7 +537,9 @@
   <header class="nav">
     <div class="nav-inner">
       <div class="nav-brand">
-        <div class="nav-mark">A</div>
+        <div class="nav-mark">
+          <img src="logo.svg" alt="Acfinite Logo"/>
+        </div>
         <div class="nav-title">Acfinite Accounting</div>
       </div>
       <nav class="nav-links">
