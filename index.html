@@ -128,7 +128,14 @@
       box-shadow: var(--shadow-soft);
     }
     .nav-btn.primary:hover { background: var(--primary-deep); }
-
+    .nav-btn.line-btn {
+  background: #06C755;      /* LINE GREEN */
+  border: 1px solid #06C755;
+  color: #ffffff;
+}
+.nav-btn.line-btn:hover {
+  background: #04b54c;      /* Hover LINE GREEN */
+}
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.4fr);
@@ -538,7 +545,7 @@
       </nav>
       <div class="nav-cta">
         <button class="nav-btn">ใบเสนอราคา</button>
-        <button class="nav-btn primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <button class="nav-btn line-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           แอด LINE ปรึกษาฟรี
         </button>
       </div>
