@@ -112,8 +112,9 @@
       align-items: center;
       gap: 6px;
       transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
-      background: var(--primary-soft);
-      color: var(--primary-deep);
+      /* ใส่ CI */
+      background: var(--primary);
+      color: #ffffff;
       border: 1px solid var(--primary);
     }
     .nav-btn.primary {
@@ -122,8 +123,9 @@
       color: #ffffff;
     }
     .nav-btn:hover {
-      background: var(--primary);
-      color: #ffffff;
+      background: var(--primary-deep);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
     }
     .nav-btn.primary:hover { background: var(--primary-deep); }
 
