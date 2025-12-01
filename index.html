@@ -1,85 +1,1079 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acfinite Accounting</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acfinite Accounting | บริการบัญชีและจดบริษัท</title>
+
+  <!-- ฟอนต์ทันสมัย รองรับภาษาไทย -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --primary: #2563eb;
+      --primary-soft: #e0ecff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-soft: #e5e7eb;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.06);
+      --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --transition-fast: 180ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Prompt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #eef3ff 0, #f5f7fb 45%, #f9fafb 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* NAV */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(245, 247, 251, 0.8);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+    }
+
+    .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 20% 0%, #60a5fa 0, #2563eb 40%, #1e3a8a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      padding: 4px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .nav-btn.primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.28);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-subtle);
+      background: #ffffff;
+    }
+
+    .nav-btn.primary:hover {
+      box-shadow: 0 14px 32px rgba(37, 99, 235, 0.35);
+      background: linear-gradient(135deg, #1d4ed8, #1d4ed8);
+    }
+
+    /* SHELL */
+
+    .shell {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 40px;
+      align-items: center;
+      padding: 40px 0 20px;
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #4b5563;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(226, 232, 240, 0.8);
+    }
+
+    .hero-kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-title {
+      margin: 16px 0 12px;
+      font-size: clamp(30px, 4vw, 38px);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-highlight {
+      color: #2563eb;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hero-primary-btn {
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.33);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    }
+
+    .hero-primary-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 20px 45px rgba(37, 99, 235, 0.45);
+    }
+
+    .hero-secondary-link {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-secondary-link span {
+      font-size: 17px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta-dot {
+      width: 3px;
+      height: 3px;
+      background: #9ca3af;
+      border-radius: 999px;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .hero-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1d4ed8;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 14px 0;
+    }
+
+    .hero-grid-item {
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      background: #f9fafb;
+    }
+
+    .hero-grid-label {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    .hero-grid-value {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: #9ca3af;
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    /* SECTION GENERAL */
+
+    .section {
+      margin-top: 56px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 360px;
+    }
+
+    /* PAIN POINTS */
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 6px 0;
+      border-bottom: 1px dashed #edf0f4;
+    }
+
+    .list li:last-child {
+      border-bottom: none;
+    }
+
+    .list-bullet {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      margin-top: 7px;
+      background: #c4c9d4;
+    }
+
+    /* SERVICES */
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .service-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 3px 8px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .service-chip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #2563eb;
+    }
+
+    .service-list li {
+      border: none;
+      padding: 2px 0;
+    }
+
+    /* PRICING */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pricing-card {
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
+      background: #ffffff;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .pricing-card.highlight {
+      border-color: rgba(37, 99, 235, 0.45);
+      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #1d4ed8;
+      background: #dbeafe;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .pricing-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .pricing-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .pricing-list li {
+      border: none;
+      padding: 2px 0;
+      font-size: 13px;
+    }
+
+    .pricing-note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* PROCESS */
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .process-step {
+      border-radius: var(--radius-md);
+      padding: 12px 12px 10px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+    }
+
+    .process-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      color: #4b5563;
+    }
+
+    .process-title {
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .process-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* CONTACT */
+
+    .contact {
+      margin-top: 56px;
+      border-radius: var(--radius-lg);
+      padding: 22px 20px 20px;
+      background: radial-gradient(circle at top left, #2563eb1a 0, #ffffff 55%);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .contact-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .contact-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .contact-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .contact-pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 12px;
+      font-size: 13px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-field-full {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    input, textarea {
+      font-family: inherit;
+      font-size: 13px;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      background: rgba(255, 255, 255, 0.9);
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    input:focus, textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.15);
+      background: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .form-submit {
+      margin-top: 2px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .submit-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.28);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.38);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 18px 20px 40px;
+      font-size: 11px;
+      color: #9ca3af;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .service-grid,
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .shell {
+        padding-bottom: 64px;
+      }
+      .hero {
+        padding-top: 28px;
+      }
+      .process-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .contact-form {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .form-field-full {
+        grid-column: auto;
+      }
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>บริการบัญชีและจดบริษัทครบวงจร</h1>
-        <p>โฟกัสที่การเติบโตของธุรกิจ ที่เหลือเรื่องบัญชี–ภาษีให้เราดูแล</p>
-        <a href="#contact" class="cta-btn">แอดไลน์ปรึกษาฟรี</a>
-    </header>
 
-    <section>
-        <h2>ปัญหาที่เจ้าของธุรกิจเจอบ่อย</h2>
-        <ul>
-            <li>เสียเวลาทำเอกสารบัญชี แทนที่จะได้โฟกัสเรื่องขาย</li>
-            <li>ไม่มั่นใจว่าส่งภาษีถูกต้องหรือไม่</li>
-            <li>ระบบเอกสารไม่เป็นระเบียบ</li>
-            <li>ไม่แน่ใจว่าควรจดบริษัทแบบไหนให้ประหยัดภาษีที่สุด</li>
-        </ul>
-    </section>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <div class="nav-logo">A</div>
+        <div>Acfinite Accounting</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#services">บริการ</a>
+        <a href="#pricing">แพ็กเกจราคา</a>
+        <a href="#process">ขั้นตอนทำงาน</a>
+        <a href="#contact">ติดต่อ</a>
+      </nav>
+      <div class="nav-cta">
+        <button class="nav-btn">ดาวน์โหลดใบเสนอราคา</button>
+        <button class="nav-btn primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          แอดไลน์ปรึกษา
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <section>
-        <h2>บริการของเรา</h2>
-        <h3>ทำบัญชีและยื่นภาษีรายเดือน</h3>
-        <ul>
-            <li>บันทึกบัญชีตามเอกสารจริง</li>
-            <li>ยื่น ภ.พ.30, ภงด.1, 3, 53 ครบทุกเดือน</li>
-            <li>ปิดงบการเงินประจำปี</li>
-            <li>ให้คำปรึกษาภาษีเบื้องต้น</li>
-        </ul>
-
-        <h3>บริการจดบริษัท</h3>
-        <ul>
-            <li>ให้คำปรึกษาเลือกโครงสร้างธุรกิจ</li>
-            <li>จดทะเบียนบริษัท/หจก.</li>
-            <li>จดภาษีมูลค่าเพิ่ม (VAT)</li>
-            <li>ขึ้นทะเบียนประกันสังคม</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>แพ็กเกจราคา</h2>
-
-        <div class="pricing-box">
-            <h3>Starter</h3>
-            <p>เหมาะสำหรับธุรกิจเริ่มต้น</p>
-            <ul>
-                <li>ทำบัญชีรายเดือน</li>
-                <li>ยื่นภาษีทุกเดือน</li>
-                <li>เริ่มต้นที่ X,XXX บาท/เดือน</li>
-            </ul>
+  <main class="shell">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-kicker">
+          <span class="hero-kicker-dot"></span>
+          บัญชี–ภาษีสำหรับเจ้าของธุรกิจยุคใหม่
         </div>
 
-        <div class="pricing-box">
-            <h3>Growth</h3>
-            <p>เหมาะสำหรับธุรกิจที่กำลังเติบโต</p>
-            <ul>
-                <li>รวมทุกอย่างใน Starter</li>
-                <li>ให้คำปรึกษาภาษีรายเดือน</li>
-                <li>เริ่มต้นที่ X,XXX บาท/เดือน</li>
-            </ul>
+        <h1 class="hero-title">
+          โฟกัสที่การเติบโตของคุณ<br />
+          <span class="hero-highlight">ส่วนบัญชี–ภาษีให้เราดูแล</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          บริการบัญชีและจดบริษัทสำหรับธุรกิจขนาดเล็ก–กลาง
+          ออกแบบให้เข้าใจง่าย โปร่งใส และทันเวลา
+        </p>
+
+        <div class="hero-actions">
+          <button class="hero-primary-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            แอดไลน์ปรึกษาฟรี
+            <span>›</span>
+          </button>
+          <a href="#pricing" class="hero-secondary-link">
+            ดูแพ็กเกจราคา
+            <span>→</span>
+          </a>
         </div>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-dot"></span>
+            ยื่นภาษีตรงเวลา 100% ตามเอกสารที่ได้รับ
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-dot"></span>
+            เหมาะสำหรับธุรกิจออนไลน์ บริการ และเทรดดิ้ง
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-title">
+          ตัวอย่างภาพรวมที่คุณจะได้เห็นทุกเดือน
+          <span class="hero-pill">Monthly Snapshot</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-grid-item">
+            <div class="hero-grid-label">ยอดขายเดือนนี้ (ประมาณการ)</div>
+            <div class="hero-grid-value">฿ 420,000</div>
+          </div>
+          <div class="hero-grid-item">
+            <div class="hero-grid-label">ภาษีที่ต้องชำระ</div>
+            <div class="hero-grid-value">฿ 21,000</div>
+          </div>
+          <div class="hero-grid-item">
+            <div class="hero-grid-label">จำนวนเอกสาร</div>
+            <div class="hero-grid-value">180 ใบ</div>
+          </div>
+          <div class="hero-grid-item">
+            <div class="hero-grid-label">สถานะการยื่นภาษี</div>
+            <div class="hero-grid-value">เตรียมยื่น / เรียบร้อย</div>
+          </div>
+        </div>
+
+        <div class="hero-note">
+          *ตัวเลขด้านบนเป็นตัวอย่างเท่านั้น — ในการใช้งานจริงคุณจะได้รับรายงานที่อิงจากข้อมูลของธุรกิจคุณจริง ๆ
+        </div>
+      </aside>
     </section>
 
-    <section>
-        <h2>ขั้นตอนการทำงาน</h2>
-        <ol>
-            <li>พูดคุยเพื่อทำความเข้าใจธุรกิจ</li>
-            <li>เสนอแพ็กเกจที่เหมาะสม</li>
-            <li>เริ่มเก็บเอกสารและบันทึกบัญชี</li>
-            <li>สรุปผลและรายงานทุกเดือน</li>
-        </ol>
+    <!-- PAIN POINTS -->
+    <section id="pain" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">ปัญหาที่เจ้าของกิจการเจอบ่อย</h2>
+        </div>
+        <p class="section-subtitle">
+          เราออกแบบบริการมาเพื่อเจ้าของธุรกิจที่ไม่ได้มีทีมบัญชีในองค์กร
+          และอยากได้คู่คิดที่อธิบายทุกอย่างให้เข้าใจง่าย
+        </p>
+      </div>
+
+      <div class="card">
+        <ul class="list">
+          <li>
+            <span class="list-bullet"></span>
+            <span>เสียเวลานั่งจัดการเอกสารบัญชี แทนที่จะได้โฟกัสเรื่องขายและลูกค้า</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>ไม่มั่นใจว่าส่งภาษีครบและถูกต้อง กลัวเจอค่าปรับแบบไม่จำเป็น</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>ระบบเอกสารไม่เป็นระเบียบ หายบ้าง ปะปนกันบ้าง จนตรวจสอบย้อนหลังลำบาก</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>ไม่แน่ใจว่าควรจดบริษัท / หจก. / บุคคลธรรมดา แบบไหนเหมาะและประหยัดภาษีที่สุด</span>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <section id="contact" class="footer-cta">
-        <h2>สนใจให้เราดูแลบัญชีของคุณ?</h2>
-        <p>ให้ข้อมูลเล็กน้อยแล้วเราจะติดต่อกลับ</p>
-        <a href="#">แอดไลน์เพื่อติดต่อ</a>
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">บริการของเรา</h2>
+        </div>
+        <p class="section-subtitle">
+          ดูแลตั้งแต่การวางโครงสร้างตั้งแต่วันแรก ไปจนถึงการทำบัญชีและยื่นภาษีรายเดือน
+        </p>
+      </div>
+
+      <div class="service-grid">
+        <div class="card">
+          <div class="service-chip">
+            <span class="service-chip-dot"></span>
+            Monthly Accounting
+          </div>
+          <div class="service-card-title">ทำบัญชีและยื่นภาษีรายเดือน</div>
+          <ul class="list service-list">
+            <li>
+              <span class="list-bullet"></span>
+              <span>บันทึกบัญชีตามเอกสารจริง (รายรับ–รายจ่าย / ลูกหนี้–เจ้าหนี้)</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>จัดทำและยื่น ภ.พ.30, ภ.พ.36, ภงด.1, 3, 53 ตามกำหนด</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>สรุปภาษีที่ต้องชำระ พร้อมแจ้งเตือนล่วงหน้า</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>ปิดงบการเงินประจำปีและเตรียมข้อมูลส่งผู้สอบบัญชี (ถ้ามี)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="service-chip">
+            <span class="service-chip-dot"></span>
+            Company Setup
+          </div>
+          <div class="service-card-title">บริการจดบริษัทและวางโครงสร้างภาษี</div>
+          <ul class="list service-list">
+            <li>
+              <span class="list-bullet"></span>
+              <span>ให้คำปรึกษาเลือกประเภทนิติบุคคลให้เหมาะกับเป้าหมายธุรกิจ</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>จดทะเบียนบริษัท/หจก. กับกรมพัฒนาธุรกิจการค้า</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>ขอเลขประจำตัวผู้เสียภาษี และจดทะเบียนภาษีมูลค่าเพิ่ม (VAT)</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>ขึ้นทะเบียนประกันสังคมเมื่อเริ่มมีพนักงาน</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">แพ็กเกจราคา</h2>
+        </div>
+        <p class="section-subtitle">
+          ราคาเริ่มต้นปรับตามปริมาณเอกสารและลักษณะธุรกิจ
+          คุณสามารถเริ่มจากแพ็กเกจเล็ก แล้วค่อยขยับเมื่อธุรกิจเติบโต
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-name">Starter</div>
+          <div class="pricing-desc">เหมาะสำหรับธุรกิจเริ่มต้น / ยอดเอกสารไม่มาก</div>
+          <div class="pricing-price">เริ่มต้นที่ X,XXX บาท/เดือน</div>
+          <ul class="list pricing-list">
+            <li>
+              <span class="list-bullet"></span>
+              <span>ทำบัญชีและยื่นภาษีรายเดือนตามเอกสารที่ส่ง</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>สรุปยอดขาย–ค่าใช้จ่ายเบื้องต้นต่อเดือน</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>ปรึกษาคำถามทั่วไปด้านภาษีผ่านแชต/อีเมล</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pricing-card highlight">
+          <div class="pricing-badge">recommended</div>
+          <div class="pricing-name">Growth</div>
+          <div class="pricing-desc">สำหรับธุรกิจที่เริ่มมีทีมและยอดขายเติบโตต่อเนื่อง</div>
+          <div class="pricing-price">เริ่มต้นที่ X,XXX บาท/เดือน</div>
+          <ul class="list pricing-list">
+            <li>
+              <span class="list-bullet"></span>
+              <span>รวมทุกอย่างใน Starter</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>สรุปตัวเลขสำคัญให้ผู้บริหารเดือนละครั้ง</span>
+            </li>
+            <li>
+              <span class="list-bullet"></span>
+              <span>ที่ปรึกษาภาษีเบื้องต้นแบบนัดคุยออนไลน์</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pricing-note">
+        *ราคาจริงขึ้นอยู่กับปริมาณเอกสารและลักษณะธุรกิจ — สามารถส่งข้อมูลเบื้องต้นเพื่อขอประเมินราคาที่เหมาะสมสำหรับกิจการของคุณได้ฟรี
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">ขั้นตอนการทำงานกับเรา</h2>
+        </div>
+        <p class="section-subtitle">
+          โฟกัสให้เรียบง่าย ชัดเจน และตรวจสอบได้ ตั้งแต่วันแรกที่เริ่มใช้บริการ
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="process-number">1</div>
+          <div class="process-title">คุยทำความเข้าใจธุรกิจ</div>
+          <div class="process-text">
+            เล่ารูปแบบธุรกิจ ปริมาณเอกสาร และสิ่งที่คุณกังวล
+            เราช่วยแนะนำโครงสร้างเบื้องต้นให้
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="process-number">2</div>
+          <div class="process-title">ออกแบบแพ็กเกจและวิธีทำงาน</div>
+          <div class="process-text">
+            สรุปค่าบริการ รูปแบบส่งเอกสาร และช่องทางสื่อสารให้ชัดเจนก่อนเริ่มงาน
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="process-number">3</div>
+          <div class="process-title">เริ่มทำบัญชีและยื่นภาษี</div>
+          <div class="process-text">
+            เราดูแลการบันทึกบัญชีและการยื่นภาษีตามรอบ พร้อมแจ้งเตือนทุกกำหนด
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="process-number">4</div>
+          <div class="process-title">สรุปผลและปรับปรุงต่อเนื่อง</div>
+          <div class="process-text">
+            ส่งรายงานตัวเลขที่เจ้าของธุรกิจควรรู้ และแนะนำจุดที่สามารถวางแผนได้ดีขึ้น
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div>
+        <div class="contact-label">เริ่มต้น</div>
+        <div class="contact-title">ส่งข้อมูลธุรกิจเล็กน้อยให้เราช่วยประเมิน</div>
+        <p class="contact-text">
+          กรอกข้อมูลโดยสรุป แล้วเราจะติดต่อกลับเพื่อแนะนำแพ็กเกจที่เหมาะกับธุรกิจของคุณ
+        </p>
+
+        <div class="contact-items">
+          <div class="contact-pill">
+            <span>Line:</span>
+            <strong>@yourlineid</strong>
+          </div>
+          <div class="contact-pill">
+            <span>โทร:</span>
+            <strong>0x-xxx-xxxx</strong>
+          </div>
+          <div class="contact-pill">
+            <span>อีเมล:</span>
+            <strong>accounting@acfinite.com</strong>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form class="contact-form">
+          <div class="form-field">
+            <label>ชื่อ–นามสกุล</label>
+            <input type="text" placeholder="เช่น คุณวิน เจ้าของกิจการ" />
+          </div>
+          <div class="form-field">
+            <label>ช่องทางติดต่อกลับ</label>
+            <input type="text" placeholder="เบอร์โทรศัพท์ หรือไลน์ไอดี" />
+          </div>
+          <div class="form-field">
+            <label>ประเภทธุรกิจ</label>
+            <input type="text" placeholder="เช่น ร้านออนไลน์ / บริการ / เทรดดิ้ง" />
+          </div>
+          <div class="form-field">
+            <label>ยอดขายต่อเดือน (ประมาณการ)</label>
+            <input type="text" placeholder="เช่น 200,000 – 500,000 บาท" />
+          </div>
+          <div class="form-field form-field-full">
+            <label>หมายเหตุเพิ่มเติม</label>
+            <textarea placeholder="เล่าปัญหาหรือสิ่งที่อยากให้เราช่วยดูแลเป็นพิเศษ"></textarea>
+          </div>
+          <div class="form-field form-field-full form-submit">
+            <button type="button" class="submit-btn">
+              ส่งข้อมูลให้เราติดต่อกลับ
+              <span>→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2025 Acfinite Accounting. All rights reserved.</div>
+    <div>บริการบัญชี–ภาษี และจดบริษัทสำหรับธุรกิจขนาดเล็กและธุรกิจออนไลน์</div>
+  </footer>
+
 </body>
 </html>
