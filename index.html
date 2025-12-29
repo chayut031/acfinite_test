@@ -707,13 +707,15 @@
 
 <div id="lineModal" class="line-modal" onclick="closeLineModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close-modal" onclick="document.getElementById('lineModal').style.display='none'">&times;</span>
+    
+    <span class="close-modal" onclick="closeLineModal()">&times;</span>
+    
     <h3 style="margin-top:0; font-size:18px;">เพิ่มเพื่อนผ่าน LINE</h3>
     <p style="font-size:13px; color:var(--text-muted);">สแกน QR Code ด้านล่างนี้</p>
     
-    <img src="qr-line.png" alt="LINE QR Code"> 
+    <img src="qr-line.png" alt="LINE QR Code" style="width:200px; height:200px; margin:15px 0;"> 
     
-    <a href="https://line.me/ti/p/@360cmuko" target="_blank" class="modal-btn-line">
+    <a href="https://line.me/ti/p/@360cmuko" target="_blank" class="modal-btn-line" style="text-decoration:none;">
       เปิดผ่านแอป LINE
     </a>
   </div>
@@ -1021,8 +1023,10 @@
     var modal = document.getElementById('lineModal');
     // ปิดเมื่อคลิกที่ปุ่มปิด หรือคลิกพื้นที่ว่างรอบๆ Modal
     if (!event || event.target.id === 'lineModal' || event.target.className === 'close-modal') {
+    if (modal) {
       modal.style.display = 'none';
-      // คืนค่าการเลื่อนหน้าจอ
+      
+      // คืนค่าให้หน้าจอเลื่อนได้ตามปกติ (จุดที่ต้องแก้ไข)
       document.body.style.overflow = 'auto';
     }
   }
