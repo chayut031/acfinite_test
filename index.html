@@ -106,19 +106,22 @@
       align-items: center;
     }
     .nav-btn {
-      padding: 6px 14px;
+      padding: 8px 16px;
       border-radius: 999px;
       font-size: 13px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center; /* จัดให้อยู่กลางปุ่ม */
       gap: 6px;
-      transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
-      /* ใส่ CI */
+      transition: all var(--transition-fast);
       background: var(--primary);
       color: #ffffff;
       border: 1px solid var(--primary);
       font-weight: 500;
+      white-space: nowrap; /* ป้องกันตัวอักษรตกบรรทัด (ที่ทำให้ปุ่มกลม) */
+      min-width: 100px;    /* กำหนดความกว้างขั้นต่ำให้เท่ากัน */
+      height: 38px;       /* กำหนดความสูงให้คงที่ */
     }
     .nav-btn.primary {
       border-color: transparent;
@@ -569,29 +572,49 @@
 
 /* ซ่อน Social ใน Nav เมื่อจอเล็ก (เพื่อให้ไม่เบียดปุ่ม LINE) */
 @media (max-width: 880px) {
-  .nav-social {
-    /* ปรับระยะห่างให้พอดีกับหน้าจอมือถือ */
-    border-left: none; /* เอาเส้นคั่นออกบนมือถือเพื่อประหยัดพื้นที่ */
-    padding-left: 0;
-    margin-left: 5px;
-    gap: 10px; /* ลดระยะห่างระหว่างไอคอนเล็กน้อย */
+  .nav-links { display: none; }
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-panel { order: -1; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .service-grid, .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact { grid-template-columns: minmax(0, 1fr); }
+
+  /* ปรับแต่งแถบเมนูบนมือถือ */
+  .nav-inner { padding: 10px 12px; }
+  .nav-cta { gap: 6px; }
+
+  .nav-social { 
+    border-left: none; /* เอาเส้นคั่นออกบนมือถือ */
+    padding-left: 0; 
+    margin-left: 5px; 
+    gap: 10px; 
   }
 
-  .social-icon {
-    font-size: 20px; /* ขยายขนาดไอคอนเล็กน้อยเพื่อให้กดง่ายขึ้นบนหน้าจอสัมผัส */
-  }
-
-  /* ถ้าปุ่ม @LINE กับ ใบเสนอราคา เบียดกันเกินไปบนมือถือ */
-  .nav-cta {
-    gap: 6px; 
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    min-width: 85px; /* ล็อคขนาดปุ่มให้เท่ากัน */
+    height: 34px;
+    white-space: nowrap;
   }
 }
 
-/* เพิ่มเติม: สำหรับหน้าจอที่เล็กมากจริงๆ (เช่น iPhone SE) */
+/* สำหรับมือถือขนาดกลาง (ต่ำกว่า 640px) */
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 56px; }
+  .hero { padding-top: 24px; }
+  .service-grid, .pricing-grid, .process-steps { grid-template-columns: minmax(0, 1fr); }
+  .contact-form { grid-template-columns: minmax(0, 1fr); }
+  .form-field-full { grid-column: auto; }
+  .footer-inner { flex-direction: column; }
+  .nav-title { font-size: 13px; }
+}
+
+/* สำหรับมือถือขนาดเล็กมาก (ต่ำกว่า 400px) */
 @media (max-width: 400px) {
-  .nav-title {
-    display: none; /* ซ่อนชื่อ Acfinite Accounting เพื่อเหลือพื้นที่ให้ปุ่ม */
-  }
+  .nav-brand { gap: 4px; }
+  .nav-title { display: none; } /* ซ่อนชื่อแบรนด์เพื่อเพิ่มพื้นที่ให้ปุ่ม */
 }
     /* Modal พื้นหลัง */
 .line-modal {
