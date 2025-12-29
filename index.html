@@ -151,13 +151,14 @@
       align-items: center;
     }
     .hero-eyebrow {
-      font-size: 14px;         /* ปรับขนาดให้ใหญ่ขึ้นเล็กน้อยเพื่อให้ชัดเจน */
+      font-size: 14px;          /* ขนาดที่พอดีอ่านง่าย */
       color: var(--text-muted);
-      text-transform: none;    /* ปิดการบังคับเป็นตัวพิมพ์ใหญ่ (ถ้ามี) */
-      letter-spacing: -0.01em; /* ลดระยะห่างตัวอักษรให้ชิดกันแบบธรรมชาติ */
+      /* ปรับระยะห่างตัวอักษรให้กลับมาปกติ (เดิมอาจจะเป็น 0.16em ซึ่งกว้างไป) */
+      letter-spacing: 0.02em;   
       margin-bottom: 12px;
-      font-weight: 500;        /* เพิ่มความหนาระดับ Medium ให้ดูพรีเมียมขึ้น */
-      opacity: 0.9;
+      font-weight: 400;         /* ความหนาปกติ */
+      text-transform: none;     /* ป้องกันการบังคับตัวพิมพ์ใหญ่ */
+      line-height: 1.5;
     }
     .hero-title {
       font-size: clamp(28px, 4vw, 34px);
@@ -622,16 +623,14 @@
 .line-modal {
   display: none; 
   position: fixed;
-  z-index: 99999; /* ปรับให้สูงขึ้นเพื่อให้ทับทุกส่วน */
+  /* ปรับ z-index ให้สูงมากๆ เพื่อทับข้อความ hero */
+  z-index: 999999; 
   left: 0;
   top: 0;
-  width: 100vw; /* ใช้ vh/vw เพื่อความแน่นอน */
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
-  
-  /* ส่วนสำคัญที่ทำให้ลูกอยู่ตรงกลาง */
-  display: none; /* เริ่มต้นเป็น none แต่เมื่อสั่ง flex จะกึ่งกลางทันที */
   align-items: center; 
   justify-content: center;
 }
