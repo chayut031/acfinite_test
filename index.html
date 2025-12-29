@@ -707,14 +707,10 @@
 
 <div id="lineModal" class="line-modal" onclick="closeLineModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
-    
     <span class="close-modal" onclick="closeLineModal()">&times;</span>
-    
     <h3 style="margin-top:0; font-size:18px;">เพิ่มเพื่อนผ่าน LINE</h3>
     <p style="font-size:13px; color:var(--text-muted);">สแกน QR Code ด้านล่างนี้</p>
-    
     <img src="qr-line.png" alt="LINE QR Code" style="width:200px; height:200px; margin:15px 0;"> 
-    
     <a href="https://line.me/ti/p/@360cmuko" target="_blank" class="modal-btn-line" style="text-decoration:none;">
       เปิดผ่านแอป LINE
     </a>
@@ -990,44 +986,35 @@
   </footer>
 
   <script>
-  /**
-   * 1. จัดการฟอร์มติดต่อ: แสดงช่องกรอกข้อมูลเพิ่มเติมเมื่อเลือกประเภทธุรกิจเป็น "อื่นๆ"
-   */
+  // 1. จัดการเรื่องเลือกประเภทธุรกิจ (โค้ดเดิม)
   (function() {
     var select = document.getElementById('business-type');
     var otherWrapper = document.getElementById('business-type-other-wrapper');
-    if (!select || !otherWrapper) return;
-    
-    select.addEventListener('change', function () {
-      if (this.value === 'other') {
-        otherWrapper.style.display = 'flex';
-      } else {
-        otherWrapper.style.display = 'none';
-      }
-    });
+    if (select && otherWrapper) {
+      select.addEventListener('change', function () {
+        otherWrapper.style.display = (this.value === 'other') ? 'flex' : 'none';
+      });
+    }
   })();
 
-  /**
-   * 2. จัดการ LINE QR Modal: เปิดและปิดหน้าต่าง QR Code
-   */
+  // 2. ฟังก์ชันเปิด LINE Modal
   function openLineModal() {
     var modal = document.getElementById('lineModal');
     if (modal) {
-      modal.style.display = 'flex';
-      // ป้องกันการเลื่อนหน้าจอเบื้องหลังเมื่อเปิด Modal (ตัวเลือกเสริม)
-      document.body.style.overflow = 'hidden';
+      modal.style.display = 'flex'; // สั่งแสดงผล
+      document.body.style.overflow = 'hidden'; // ล็อกหน้าจอไม่ให้เลื่อน
     }
   }
 
+  // 3. ฟังก์ชันปิด LINE Modal
   function closeLineModal(event) {
     var modal = document.getElementById('lineModal');
-    // ปิดเมื่อคลิกที่ปุ่มปิด หรือคลิกพื้นที่ว่างรอบๆ Modal
-    if (!event || event.target.id === 'lineModal' || event.target.className === 'close-modal') {
     if (modal) {
-      modal.style.display = 'none';
-      
-      // คืนค่าให้หน้าจอเลื่อนได้ตามปกติ (จุดที่ต้องแก้ไข)
-      document.body.style.overflow = 'auto';
+      // ตรวจสอบ: ปิดเมื่อกดปุ่ม X หรือกดพื้นที่สีดำรอบๆ (ID: lineModal)
+      if (!event || event.target.id === 'lineModal' || event.target.className === 'close-modal') {
+        modal.style.display = 'none'; // ซ่อน Modal
+        document.body.style.overflow = ''; // คืนค่าให้หน้าจอเลื่อนได้ปกติ (แก้บั๊กเลื่อนไม่ได้)
+      }
     }
   }
 </script>
