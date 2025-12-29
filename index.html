@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     :root {
       /* Primary – Calm Sea Blue */
@@ -531,6 +532,92 @@
       .form-field-full { grid-column: auto; }
       .footer-inner { flex-direction: column; }
     }
+    /* Social Icons ในแถบเมนู */
+.nav-social {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-left: 10px;
+  border-left: 1px solid var(--border);
+  padding-left: 16px;
+}
+.social-icon {
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+}
+.social-icon:hover {
+  transform: translateY(-2px);
+}
+.social-icon.fb:hover { color: #1877F2; } /* สี Facebook */
+.social-icon.tt:hover { color: #000000; } /* สี TikTok */
+
+/* ปรับแต่ง Contact Pill ให้กดง่ายขึ้น */
+.contact-pill.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+}
+.contact-pill.social:hover {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+
+/* ซ่อน Social ใน Nav เมื่อจอเล็ก (เพื่อให้ไม่เบียดปุ่ม LINE) */
+@media (max-width: 880px) {
+  .nav-social { display: none; }
+}
+    /* Modal พื้นหลัง */
+.line-modal {
+  display: none; 
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+
+/* กล่องเนื้อหา Modal */
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  max-width: 320px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+
+.modal-content img {
+  width: 200px; /* ขนาด QR Code */
+  height: 200px;
+  margin: 15px 0;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.modal-btn-line {
+  display: block;
+  background: #06C755;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+}
   </style>
 </head>
 <body>
@@ -549,12 +636,33 @@
         <a href="#contact">ติดต่อ</a>
       </nav>
       <div class="nav-cta">
-        <button class="nav-btn">ใบเสนอราคา</button>
-        <button class="nav-btn line-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          @LINE
-        </button>
-      </div>
-    </div>
+  <a href="URL_GOOGLE_DRIVE_ของคุณ" class="nav-btn" target="_blank" style="text-decoration: none;">
+    ใบเสนอราคา
+  </a>
+
+  <button class="nav-btn line-btn" onclick="openLineModal()">
+    @LINE
+  </button>
+  
+  <div class="nav-social">
+    <a href="URL_FB" class="social-icon fb" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+    <a href="URL_TT" class="social-icon tt" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+  </div>
+</div>
+
+<div id="lineModal" class="line-modal" onclick="closeLineModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-modal" onclick="document.getElementById('lineModal').style.display='none'">&times;</span>
+    <h3 style="margin-top:0; font-size:18px;">เพิ่มเพื่อนผ่าน LINE</h3>
+    <p style="font-size:13px; color:var(--text-muted);">สแกน QR Code ด้านล่างนี้</p>
+    
+    <img src="qr-line.png" alt="LINE QR Code"> 
+    
+    <a href="https://line.me/ti/p/@yourid" target="_blank" class="modal-btn-line">
+      เปิดผ่านแอป LINE
+    </a>
+  </div>
+</div>
   </header>
 
   <main class="shell">
@@ -825,18 +933,44 @@
   </footer>
 
   <script>
-    (function() {
-      var select = document.getElementById('business-type');
-      var otherWrapper = document.getElementById('business-type-other-wrapper');
-      if (!select || !otherWrapper) return;
-      select.addEventListener('change', function () {
-        if (this.value === 'other') {
-          otherWrapper.style.display = 'flex';
-        } else {
-          otherWrapper.style.display = 'none';
-        }
-      });
-    })();
-  </script>
+  /**
+   * 1. จัดการฟอร์มติดต่อ: แสดงช่องกรอกข้อมูลเพิ่มเติมเมื่อเลือกประเภทธุรกิจเป็น "อื่นๆ"
+   */
+  (function() {
+    var select = document.getElementById('business-type');
+    var otherWrapper = document.getElementById('business-type-other-wrapper');
+    if (!select || !otherWrapper) return;
+    
+    select.addEventListener('change', function () {
+      if (this.value === 'other') {
+        otherWrapper.style.display = 'flex';
+      } else {
+        otherWrapper.style.display = 'none';
+      }
+    });
+  })();
+
+  /**
+   * 2. จัดการ LINE QR Modal: เปิดและปิดหน้าต่าง QR Code
+   */
+  function openLineModal() {
+    var modal = document.getElementById('lineModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      // ป้องกันการเลื่อนหน้าจอเบื้องหลังเมื่อเปิด Modal (ตัวเลือกเสริม)
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeLineModal(event) {
+    var modal = document.getElementById('lineModal');
+    // ปิดเมื่อคลิกที่ปุ่มปิด หรือคลิกพื้นที่ว่างรอบๆ Modal
+    if (!event || event.target.id === 'lineModal' || event.target.className === 'close-modal') {
+      modal.style.display = 'none';
+      // คืนค่าการเลื่อนหน้าจอ
+      document.body.style.overflow = 'auto';
+    }
+  }
+</script>
 </body>
 </html>
