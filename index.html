@@ -543,7 +543,7 @@
 }
 .social-icon {
   font-size: 18px;
-  color: var(--text-muted);
+  color: var(--text-main);
   transition: all var(--transition-fast);
   display: flex;
   align-items: center;
@@ -569,7 +569,29 @@
 
 /* ซ่อน Social ใน Nav เมื่อจอเล็ก (เพื่อให้ไม่เบียดปุ่ม LINE) */
 @media (max-width: 880px) {
-  .nav-social { display: none; }
+  .nav-social {
+    /* ปรับระยะห่างให้พอดีกับหน้าจอมือถือ */
+    border-left: none; /* เอาเส้นคั่นออกบนมือถือเพื่อประหยัดพื้นที่ */
+    padding-left: 0;
+    margin-left: 5px;
+    gap: 10px; /* ลดระยะห่างระหว่างไอคอนเล็กน้อย */
+  }
+
+  .social-icon {
+    font-size: 20px; /* ขยายขนาดไอคอนเล็กน้อยเพื่อให้กดง่ายขึ้นบนหน้าจอสัมผัส */
+  }
+
+  /* ถ้าปุ่ม @LINE กับ ใบเสนอราคา เบียดกันเกินไปบนมือถือ */
+  .nav-cta {
+    gap: 6px; 
+  }
+}
+
+/* เพิ่มเติม: สำหรับหน้าจอที่เล็กมากจริงๆ (เช่น iPhone SE) */
+@media (max-width: 400px) {
+  .nav-title {
+    display: none; /* ซ่อนชื่อ Acfinite Accounting เพื่อเหลือพื้นที่ให้ปุ่ม */
+  }
 }
     /* Modal พื้นหลัง */
 .line-modal {
